@@ -4,7 +4,7 @@
       "type": "shell",
       "label": "build-debug",
       "command": "${workspaceFolder}/build.bat",
-      "args": ["-d"],
+      "args": ["-dt"],
       "group": "build",
       "presentation": {
         "echo": true,
@@ -17,7 +17,7 @@
       "type": "shell",
       "label": "build-release",
       "command": "${workspaceFolder}/build.bat",
-      "args": [],
+      "args": ["-t"],
       "group": "build",
       "presentation": {
         "echo": true,

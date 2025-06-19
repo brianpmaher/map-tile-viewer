@@ -5,8 +5,20 @@
 #define rl_Vector2 Vector2
 #define rl_vector2_add Vector2Add
 #define rl_vector2_scale Vector2Scale
+#define rl_vector2_multiply Vector2Multiply
 #define rl_Vector3 Vector3
+#define rl_vector3_add Vector3Add
+#define rl_vector3_subtract Vector3Subtract
+#define rl_vector3_normalize Vector3Normalize
+#define rl_vector3_scale Vector3Scale
+#define rl_vector3_negate Vector3Negate
+#define rl_vector3_length Vector3Length
+#define rl_vector3_cross_product Vector3CrossProduct
 #define rl_Rectangle Rectangle
+#define rl_clamp Clamp
+
+// Time
+#define rl_get_frame_time GetFrameTime
 
 // Window
 #define rl_FLAG_WINDOW_RESIZABLE FLAG_WINDOW_RESIZABLE
@@ -62,6 +74,8 @@
 #define rl_is_mouse_button_down IsMouseButtonDown
 #define rl_hide_cursor HideCursor
 #define rl_show_cursor ShowCursor
+#define rl_get_mouse_wheel_move GetMouseWheelMove
+#define rl_get_mouse_delta GetMouseDelta
 
 // Text
 #define rl_measure_text MeasureText
