@@ -1,8 +1,8 @@
-# Raylib C Template
+# Map Tile Viewer
 
-A template for using Raylib with C, designed to get started quickly.
+![Screenshot](screenshot.png)
 
-Uses single-translation unit build for simplicity.
+A tool for visualizing map tiles.
 
 ## Installation
 
