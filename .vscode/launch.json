@@ -1,0 +1,22 @@
+{
+  "configurations": [
+    {
+      "type": "cppvsdbg",
+      "request": "launch",
+      "name": "Debug Game",
+      "program": "${workspaceFolder}/build/debug/game.exe",
+      "stopAtEntry": false,
+      "cwd": "${workspaceFolder}",
+      "preLaunchTask": "build-debug"
+    },
+    {
+      "type": "cppvsdbg",
+      "request": "launch",
+      "name": "Release Game",
+      "program": "${workspaceFolder}/build/release/game.exe",
+      "stopAtEntry": false,
+      "cwd": "${workspaceFolder}",
+      "preLaunchTask": "build-release"
+    }
+  ]
+}

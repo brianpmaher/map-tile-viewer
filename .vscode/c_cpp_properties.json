@@ -1,0 +1,23 @@
+{
+    "configurations": [
+        {
+            "name": "Win32",
+            "includePath": [
+                "${default}",
+                "${workspaceFolder}/src",
+                "${workspaceFolder}/deps/raylib/src",
+                "${workspaceFolder}/deps/raylib/examples/shaders"
+            ],
+            "defines": [
+                "DEBUG"
+            ],
+            "windowsSdkVersion": "10.0.22621.0",
+            "compilerPath": "cl.exe",
+            "cStandard": "c11",
+            "forcedInclude": [
+                "src/main.c"
+            ]
+        }
+    ],
+    "version": 4
+}

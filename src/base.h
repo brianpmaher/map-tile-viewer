@@ -1,0 +1,1 @@
+#define func static inline
