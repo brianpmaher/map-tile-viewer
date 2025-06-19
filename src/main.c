@@ -4,16 +4,34 @@
 #include <stdlib.h>
 #include <assert.h>
 
+#define VECTOR3_UP (rl_Vector3){0.0f, 1.0f, 0.0f}
+
 typedef struct State {
 	rl_Vector2 window_size;
+	rl_Camera camera;
 } State;
+
+func void init_window(rl_Vector2* window_size) {
+	*window_size = (rl_Vector2){1280, 720};
+	rl_set_config_flags(rl_FLAG_WINDOW_RESIZABLE);
+	rl_init_window((int)window_size->x, (int)window_size->y, "Map Tile Viewer");
+}
+
+func void init_camera(rl_Camera* camera) {
+	*camera = (rl_Camera){
+		.position = {0.0f, 10.0f, 10.0f},
+		.target = {0.0f, 0.0f, 0.0f},
+		.up = VECTOR3_UP,
+		.fovy = 45.0f,
+		.projection = rl_CAMERA_PERSPECTIVE,
+	};
+}
 
 func State* init() {
 	State* state = (State*)malloc(sizeof(State));
 	assert(state != NULL);
-	state->window_size = (rl_Vector2){1280, 720};
-	rl_set_config_flags(rl_FLAG_WINDOW_RESIZABLE);
-	rl_init_window((int)state->window_size.x, (int)state->window_size.y, "Raylib Window");
+	init_window(&state->window_size);
+	init_camera(&state->camera);
 	return state;
 }
 
@@ -22,27 +40,35 @@ func void shutdown(State* state) {
 	free(state);
 }
 
-func void update(State* state) {
-	rl_Vector2* window_size = &state->window_size;
+func void update_window_size(rl_Vector2* window_size) {
 	window_size->x = (float)rl_get_screen_width();
 	window_size->y = (float)rl_get_screen_height();
 }
 
-func void render_text(const State* state) {
-	const char* text = "Hello, Raylib!";
-	rl_Vector2 text_size;
-	{
-		text_size.y = 40;
-		text_size.x = (float)rl_measure_text(text, (int)text_size.y);
+func void update_camera(rl_Camera* camera) {
+	if (rl_is_mouse_button_down(rl_MOUSE_BUTTON_RIGHT)) {
+		rl_hide_cursor();
+		rl_update_camera(camera, rl_CAMERA_THIRD_PERSON);
+	} else {
+		rl_show_cursor();
 	}
-	rl_Vector2 text_position = rl_vector2_add(rl_vector2_scale(state->window_size, 0.5), rl_vector2_scale(text_size, -0.5));
-	rl_draw_text(text, (int)text_position.x, (int)text_position.y, (int)text_size.y, rl_DARKGRAY);
+}
+
+func void update(State* state) {
+	update_window_size(&state->window_size);
+	update_camera(&state->camera);
+}
+
+func void render_3d(const State* state) {
+	rl_begin_mode3d(state->camera);
+	rl_draw_grid(10, 1.0f);
+	rl_end_mode3d();
 }
 
 func void render(const State* state) {
 	rl_begin_drawing();
-	rl_clear_background(rl_RAYWHITE);
-	render_text(state);
+	rl_clear_background(rl_BLACK);
+	render_3d(state);
 	rl_end_drawing();
 }
 
