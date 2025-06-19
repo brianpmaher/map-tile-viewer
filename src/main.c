@@ -4,11 +4,10 @@
 #include <stdlib.h>
 #include <assert.h>
 
-#define VECTOR3_UP (rl_Vector3){0.0f, 1.0f, 0.0f}
-
 typedef struct State {
 	rl_Vector2 window_size;
 	rl_Camera camera;
+	rl_Model tile_model;
 } State;
 
 func void init_window(rl_Vector2* window_size) {
@@ -21,17 +20,25 @@ func void init_camera(rl_Camera* camera) {
 	*camera = (rl_Camera){
 		.position = {0.0f, 10.0f, 10.0f},
 		.target = {0.0f, 0.0f, 0.0f},
-		.up = VECTOR3_UP,
+		.up = {0.0f, 1.0f, 0.0f},
 		.fovy = 45.0f,
 		.projection = rl_CAMERA_PERSPECTIVE,
 	};
 }
 
+func void init_tile(rl_Model* tile_model) {
+	Mesh mesh = rl_gen_mesh_plane(10.0f, 10.0f, 1, 1);
+	*tile_model = rl_load_model_from_mesh(mesh);
+	Texture texture = rl_load_texture("assets/tile_albedo.png");
+	tile_model->materials[0].maps[rl_MATERIAL_MAP_DIFFUSE].texture = texture;
+}
+
 func State* init() {
-	State* state = (State*)malloc(sizeof(State));
+	State* state = malloc(sizeof(State));
 	assert(state != NULL);
 	init_window(&state->window_size);
 	init_camera(&state->camera);
+	init_tile(&state->tile_model);
 	return state;
 }
 
@@ -59,9 +66,15 @@ func void update(State* state) {
 	update_camera(&state->camera);
 }
 
+func void render_tile(const rl_Model* tile_model) {
+	const rl_Vector3 position = {0.0f, 0.0f, 0.0f};
+	const float scale = 1.0f;
+	rl_draw_model(*tile_model, position, scale, rl_RAYWHITE);
+}
+
 func void render_3d(const State* state) {
 	rl_begin_mode3d(state->camera);
-	rl_draw_grid(10, 1.0f);
+	render_tile(&state->tile_model);
 	rl_end_mode3d();
 }
 

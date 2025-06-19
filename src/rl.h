@@ -1,12 +1,3 @@
-/**
- * @file rl.h
- * 
- * @brief Nitpicky wrapper for Raylib.
- * 
- * This header file provides a consistent interface for Raylib that prefixes all symbols with `rl_` and uses snake_case naming conventions.
- * I have only added the functions that I use in this template, but you can add more as needed.
- */
-
 #include <raylib.h>
 #include <raymath.h>
 
@@ -15,6 +6,7 @@
 #define rl_vector2_add Vector2Add
 #define rl_vector2_scale Vector2Scale
 #define rl_Vector3 Vector3
+#define rl_Rectangle Rectangle
 
 // Window
 #define rl_FLAG_WINDOW_RESIZABLE FLAG_WINDOW_RESIZABLE
@@ -25,10 +17,27 @@
 #define rl_get_screen_width GetScreenWidth
 #define rl_get_screen_height GetScreenHeight
 
+// Texture
+#define rl_Texture Texture
+#define rl_load_texture LoadTexture
+#define rl_draw_texture DrawTexture
+
+// Mesh
+#define rl_Mesh Mesh
+#define rl_gen_mesh_plane GenMeshPlane
+
+// Model
+#define rl_Model Model
+#define rl_load_model_from_mesh LoadModelFromMesh
+
+// Shaders
+#define rl_MATERIAL_MAP_DIFFUSE MATERIAL_MAP_DIFFUSE
+
 // Drawing
 #define rl_RAYWHITE RAYWHITE
-#define rl_DARKGRAY DARKGRAY
 #define rl_BLACK BLACK
+#define rl_WHITE WHITE
+#define rl_DARKGRAY DARKGRAY
 #define rl_begin_drawing BeginDrawing
 #define rl_end_drawing EndDrawing
 #define rl_begin_mode3d BeginMode3D
@@ -36,6 +45,8 @@
 #define rl_clear_background ClearBackground
 #define rl_draw_text DrawText
 #define rl_draw_grid DrawGrid
+#define rl_draw_billboard_pro DrawBillboardPro
+#define rl_draw_model DrawModel
 
 // Camera
 #define rl_CAMERA_PERSPECTIVE CAMERA_PERSPECTIVE
